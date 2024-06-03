@@ -3,6 +3,7 @@ const connectDB = require('./config/connectDb');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const orderoutes = require('./routes/orderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -16,6 +17,7 @@ connectDB()
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
+app.use('/order', orderoutes);
 
 
 // Start the server
