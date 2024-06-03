@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Products = require('../models/products');
+const Product = require('../models/product');
 
 // Get all products
 router.get('/', async (req, res) => {
   try {
-    const products = await Products.find();
+    const products = await Product.find();
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 // Create a new products
 router.post('/', async (req, res) => {  
-  const product = new Products({
+  const product = new Product({
     name: req.body.name,
     price: req.body.price,
   });
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
 // get perticular product
 router.get('/:id', async(req, res) => {
   try {
-    const product = await Products.findById(req.params.id);
+    const product = await Product.findById(req.params.id);
     if (product == null) {
       return res.status(404).json({ message: 'Cannot find product' });
     }
