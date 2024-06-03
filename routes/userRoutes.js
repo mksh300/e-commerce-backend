@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Cart = require('../models/cart');
 
 // Get all users
 router.get('/', async (req, res) => {
@@ -20,9 +21,13 @@ router.post('/', async (req, res) => {
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
   });
-
+  
   try {
     const newUser = await user.save();
+    const cart = new Cart({
+      userId: newUser.id
+    })
+    await cart.save();
     res.status(201).json(newUser);
   } catch (err) {
     res.status(400).json({ message: err.message });
